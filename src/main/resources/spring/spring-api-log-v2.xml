@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <description>Spring公共配置文件</description>
+
+    <bean id="loginInfoProvider" class="com.edu.api.log.v2.service.impl.DefaultLoginInfoProviderImpl"/>
+    <bean id="logTranslateProvider" class="com.edu.api.log.v2.service.impl.DefaultLogTranslateProviderImpl"/>
+    <bean id="logPersistProvider" class="com.edu.api.log.v2.service.impl.DefaultLogPersistProviderImpl"/>
+    <bean id="returnResultAnalyseProvider" class="com.edu.api.log.v2.service.impl.DefaultReturnResultAnalyseProviderImpl"/>
+
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+    <context:component-scan base-package="com.edu.api.log.v2"/>
+
+</beans>
