@@ -12,16 +12,13 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Component;
 
 /**
- * 集团
- * #操作者名#重新启用了集团#集团名#
- * #操作者名#禁用了集团#集团名#
- * #操作者名#修改了集团#集团名#的信息：集团名称（#名称1#改为了#名称2#）、集团负责人、联系电话
- * #操作者名#新增了一条集团信息：#集团名#
+ * #操作者名#重新启用了#xxx#
+ * #操作者名#禁用了#xxx#
+ * #操作者名#修改了#xxx#的信息：名称（#名称1#改为了#名称2#）、负责人、联系电话
+ * #操作者名#新增了一条信息：#xxx#
  * <p>
- * 酒店
- * #操作者名#重新启用了酒店#酒店名#。所属上级：#所属上级名#
+ * #操作者名#重新启用了#xxx#。所属上级：#所属上级名#
  * <p>
- * 人员
  * #操作者名#重新启用了人员#人员名#。所属部门：#所属部门名#
  * #操作者名#修改了人员#人员名#的密码
  * #操作者名#修改了自己的密码
@@ -57,20 +54,23 @@ public class Main {
         requestContext = context.getBean(RequestContext.class);
         Main bean = context.getBean(Main.class);
         Person person = DataTools.newData(Person.class);
-        bean.login();
-        bean.logout();
-        bean.insert(person);
-        bean.updatePersonalPassword(person);
-        bean.updatePassword(person);
-        bean.enabled(person);
-        bean.disabled(person);
-        bean.update(person);
-        bean.update1(person);
-        bean.update();
-        bean.update2(person);
-        bean.update3(person);
-        bean.delete(person);
+//        .login();
+//        bean.logout();
+//        bean.insert(person);
+//        bean.updatePersonalPassword(person);
+//        bean.updatePassword(person);
+//        bean.enabled(person);
+//        bean.disabled(person);
+//        bean.update(person);
+//        bean.update1(person);
+//        bean.update();
+//        bean.update2(person);
+//        bean.update3(person);
+//        bean.delete(person);
 //        bean.exception();
+        bean.updatePassword(true, "张三");
+        bean.updatePassword(false, "张三");
+
     }
 
     @ApiAccess(operateTitle = "登录", operateMethod = "登录", dataIdKey = "dataIdKey", logType = ApiLogTypeEnum.LOGON_LOG_TYPE, action = @ApiAction(actionType = ActionTypeEnum.POST, spell = @Spell(prefix = "登录了系统")))
@@ -186,5 +186,17 @@ public class Main {
     public Object exception() {
         requestContext.setValue("dataIdKey", "1");
         throw new RuntimeException("运行时异常");
+    }
+
+    @ApiAccess(operateTitle = "修改密码", operateMethod = "修改密码", dataIdKey = "dataIdKey", action = @ApiAction(actionType = ActionTypeEnum.POST, spell = @Spell(prefix = "修改了", codeKey = "nickName", suffix = "的密码")))
+    public Object updatePassword(boolean flag, String nickname) {
+        if (flag) {
+            requestContext.setValue("nickName", "自己");
+        } else {
+            requestContext.setValue("nickName", "人员" + nickname);
+        }
+        requestContext.setValue("dataIdKey", "123");
+
+        return null;
     }
 }
