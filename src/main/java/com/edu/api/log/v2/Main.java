@@ -5,7 +5,7 @@ import com.edu.api.log.v2.constants.ActionTypeEnum;
 import com.edu.api.log.v2.constants.ApiLogTypeEnum;
 import com.edu.api.log.v2.model.LoginInfo;
 import com.edu.api.log.v2.model.Person;
-import com.edu.api.log.v2.util.DataTools;
+import com.edu.api.log.v2.util.DataBuilder;
 import com.edu.api.log.v2.util.Jsr303Utils;
 import com.edu.api.log.v2.util.RequestContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -41,7 +41,7 @@ public class Main {
     }
 
     public static void testJsr303() {
-        LoginInfo loginInfo = DataTools.newData(LoginInfo.class);
+        LoginInfo loginInfo = DataBuilder.newDataByMethod(LoginInfo.class);
         loginInfo.setOperatorId(null);
         boolean result = Jsr303Utils.verifyObjectAttributesDefect(loginInfo);
         System.out.println(result);
@@ -53,24 +53,23 @@ public class Main {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("classpath:/spring/spring-api-log-v2.xml");
         requestContext = context.getBean(RequestContext.class);
         Main bean = context.getBean(Main.class);
-        Person person = DataTools.newData(Person.class);
-//        .login();
-//        bean.logout();
-//        bean.insert(person);
-//        bean.updatePersonalPassword(person);
-//        bean.updatePassword(person);
-//        bean.enabled(person);
-//        bean.disabled(person);
-//        bean.update(person);
-//        bean.update1(person);
-//        bean.update();
-//        bean.update2(person);
-//        bean.update3(person);
-//        bean.delete(person);
-//        bean.exception();
+        Person person = DataBuilder.newDataByMethod(Person.class);
+        bean.login();
+        bean.logout();
+        bean.insert(person);
+        bean.updatePersonalPassword(person);
+        bean.updatePassword(person);
+        bean.enabled(person);
+        bean.disabled(person);
+        bean.update(person);
+        bean.update1(person);
+        bean.update();
+        bean.update2(person);
+        bean.update3(person);
+        bean.delete(person);
         bean.updatePassword(true, "张三");
         bean.updatePassword(false, "张三");
-
+        bean.exception();
     }
 
     @ApiAccess(operateTitle = "登录", operateMethod = "登录", dataIdKey = "dataIdKey", logType = ApiLogTypeEnum.LOGON_LOG_TYPE, action = @ApiAction(actionType = ActionTypeEnum.POST, spell = @Spell(prefix = "登录了系统")))
@@ -127,7 +126,7 @@ public class Main {
 
     @ApiAccess(operateTitle = "修改", operateMethod = "修改", dataIdKey = "dataIdKey", action = @ApiAction(actionType = ActionTypeEnum.PUT, compare = @Compare(prefix = "修改了人员", codeKey = "nickname", newObjKey = "newObj", oldObjKey = "oldObj", suffix = "的信息")))
     public Object update(Person newObj) {
-        Person oldObj = DataTools.newData(Person.class);
+        Person oldObj = DataBuilder.newDataByMethod(Person.class);
         requestContext.setValue("dataIdKey", newObj.getId().toString());
         requestContext.setValue("nickname", oldObj.getName());
         requestContext.setValue("newObj", newObj);
@@ -137,7 +136,7 @@ public class Main {
 
     @ApiAccess(operateTitle = "修改", operateMethod = "修改", dataIdKey = "dataIdKey", action = @ApiAction(actionType = ActionTypeEnum.PUT, compare = @Compare(prefix = "修改了人员", codeKey = "nickname", newObjKey = "newObj", oldObjKey = "oldObj", suffix = "的信息"), spell = @Spell(prefix = "所属部门：", codeKey = "deptName")))
     public Object update1(Person newObj) {
-        Person oldObj = DataTools.newData(Person.class);
+        Person oldObj = DataBuilder.newDataByMethod(Person.class);
         requestContext.setValue("dataIdKey", newObj.getId().toString());
         requestContext.setValue("nickname", oldObj.getName());
         requestContext.setValue("newObj", newObj);
@@ -155,7 +154,7 @@ public class Main {
 
     @ApiAccess(operateTitle = "修改", operateMethod = "修改", dataIdKey = "dataIdKey", action = @ApiAction(actionType = ActionTypeEnum.PUT, compare = @Compare(prefix = "修改了人员", codeKey = "nickname", newObjKey = "newObj", oldObjKey = "oldObj", suffix = "的信息"), spell = {@Spell(codeKey = "oldStateToNewState")}))
     public Object update2(Person newObj) {
-        Person oldObj = DataTools.newData(Person.class);
+        Person oldObj = DataBuilder.newDataByMethod(Person.class);
         requestContext.setValue("dataIdKey", newObj.getId().toString());
         requestContext.setValue("nickname", oldObj.getName());
         requestContext.setValue("newObj", newObj);
@@ -166,7 +165,7 @@ public class Main {
 
     @ApiAccess(operateTitle = "修改", operateMethod = "修改", dataIdKey = "dataIdKey", action = @ApiAction(actionType = ActionTypeEnum.PUT, compare = @Compare(prefix = "修改了人员", codeKey = "nickname", newObjKey = "newObj", oldObjKey = "oldObj", suffix = "的信息"), spell = {@Spell(codeKey = "oldStateToNewState")}))
     public Object update3(Person newObj) {
-        Person oldObj = DataTools.newData(Person.class);
+        Person oldObj = DataBuilder.newDataByMethod(Person.class);
         requestContext.setValue("dataIdKey", newObj.getId().toString());
         requestContext.setValue("nickname", oldObj.getName());
 //        requestContext.setValue("newObj", newObj);
