@@ -163,13 +163,11 @@ public class Main {
         return null;
     }
 
-    @ApiAccess(operateTitle = "修改", operateMethod = "修改", dataIdKey = "dataIdKey", action = @ApiAction(actionType = ActionTypeEnum.PUT, compare = @Compare(prefix = "修改了人员", codeKey = "nickname", newObjKey = "newObj", oldObjKey = "oldObj", suffix = "的信息"), spell = {@Spell(codeKey = "oldStateToNewState")}))
+    @ApiAccess(operateTitle = "修改", operateMethod = "修改", dataIdKey = "dataIdKey", action = @ApiAction(actionType = ActionTypeEnum.PUT, compare = @Compare(prefix = "修改了人员", codeKey = "nickname", suffix = "的信息"), spell = {@Spell(codeKey = "oldStateToNewState")}))
     public Object update3(Person newObj) {
         Person oldObj = DataBuilder.newDataByMethod(Person.class);
         requestContext.setValue("dataIdKey", newObj.getId().toString());
         requestContext.setValue("nickname", oldObj.getName());
-//        requestContext.setValue("newObj", newObj);
-//        requestContext.setValue("oldObj", oldObj);
         requestContext.setValue("oldStateToNewState", "状态：禁用改为了启用");
         return null;
     }
