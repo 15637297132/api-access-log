@@ -1,5 +1,10 @@
-案例参见类Main
+使用插件要在你的web层实现以下几个接口
+LoginInfoProvider，提供用户登录信息
+LogPersistProvider，日志持久化代码
+ReturnResultAnalyseProvider，Aop执行返回结果，根据结果去判断操作成功或者失败
+这些接口，我都有默认实现，你需要根据你的工程定制化
 
+案例参见类Main
 ActionTypeEnum.GET/POST/DELETE/PASSWORD 拼接逻辑
 遍历@Spell，依次拼接 prefix + RequestContext#getValue(codeKey) + suffix + customString + “。”，最后一个“。”被舍弃
 for (Spell sp : spell) {
