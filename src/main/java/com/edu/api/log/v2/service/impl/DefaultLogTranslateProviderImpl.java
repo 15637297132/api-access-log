@@ -207,18 +207,13 @@ public class DefaultLogTranslateProviderImpl implements LogTranslateProvider {
             }
         }
         String spellLog = spellHandle(spell);
-        if (operateLog.length() > ApiConstants.ARG_LENGTH_0 && diffFieldFlag) {
-            if (ApiConstants.BLANK.equals(spellLog)) {
-                operateLog.append("。");
-            } else {
+        if (operateLog.length() > ApiConstants.ARG_LENGTH_0) {
+            if (!ApiConstants.BLANK.equals(spellLog)) {
                 operateLog.append("；");
                 operateLog.append(spellLog);
             }
         } else {
-            if (ApiConstants.BLANK.equals(spellLog)) {
-                operateLog.append("。");
-            } else {
-                operateLog.append("：");
+            if (!ApiConstants.BLANK.equals(spellLog)) {
                 operateLog.append(spellLog);
             }
         }
